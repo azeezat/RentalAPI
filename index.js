@@ -7,7 +7,7 @@ const users=require('./routes/users')
 
 const app = express();
 
-mongoose.connect(process.env.NODE_ENV==='development'?'mongodb://localhost/vidly':'mongodb+srv://aziziraheem:<@Azizi123>@cluster0-ydsji.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true })
+mongoose.connect(process.env.NODE_ENV==='development'?'mongodb://localhost/vidly':'mongodb+srv://aziziraheem:<azizi123>@cluster0-ydsji.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true })
 .then(()=>console.log('Connected to MongoDB...'))
 .catch((error)=>console.error('Cound not connect to MongoDB...'))
 
