@@ -1,3 +1,3 @@
-# CustomerAPI
+# RentalAPI
 
-API for cusomer information update
+API for movie rental
