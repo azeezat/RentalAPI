@@ -26,7 +26,6 @@ const movieSchema = new mongoose.Schema({
         minlength: 0,
         maxlength: 255
     },
-
 })
 
 const Movie = mongoose.model('Movie', movieSchema)
