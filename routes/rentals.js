@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router()
 const Fawn = require('fawn')
 const mongoose = require('mongoose')
-const { Rental, validate } = require('../models/rentals');
-const { Movie } = require('../models/movies');
-const { Customer } = require('../models/customers');
+const { Rental, validate } = require('../models/rental');
+const { Movie } = require('../models/movie');
+const { Customer } = require('../models/customer');
 
 Fawn.init(mongoose)
 

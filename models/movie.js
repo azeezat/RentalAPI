@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const mongoose = require('mongoose')
-const { genreSchema } = require('./genres');
+const { genreSchema } = require('./genre');
 
 const movieSchema = new mongoose.Schema({
     title: {
