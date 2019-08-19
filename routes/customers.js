@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Customer,validate} = require('../models/customers');
+const { Customer, validate } = require('../models/customers');
 
 router.get('/', async (req, res) => {
   const customers = await Customer.find().sort('name');
@@ -8,34 +8,36 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { error } = validate(req.body); 
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let customer = new Customer({ 
+  //check if phone number exists
+  const phoneNumber = await Customer.findOne({ phone: req.body.phone })
+  if (phoneNumber) return res.status(400).send(`Customer with phone number: ${req.body.phone} already exists`);
+
+  let customer = new Customer({
     name: req.body.name,
     isGold: req.body.isGold,
     phone: req.body.phone,
-    genre:req.body.genre
   });
   customer = await customer.save();
-  
+
   res.send(customer);
 });
 
 router.put('/:id', async (req, res) => {
-  const { error } = validate(req.body); 
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const customer = await Customer.findByIdAndUpdate(req.params.id,
-    { 
+    {
       name: req.body.name,
       isGold: req.body.isGold,
-      phone: req.body.phone,
-      genre:req.body.genre
+      phone: req.body.phone
     }, { new: true });
 
   if (!customer) return res.status(404).send('The customer with the given ID was not found.');
-  
+
   res.send(customer);
 });
 
@@ -48,13 +50,11 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const customer = await Customer.findById(req.params.id).populate('genre','name -_id');
+  const customer = await Customer.findById(req.params.id).populate('genre', 'name -_id');
 
   if (!customer) return res.status(404).send('The customer with the given ID was not found.');
 
   res.send(customer);
 });
-
-
 
 module.exports = router; 

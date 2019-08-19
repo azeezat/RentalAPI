@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router()
 const { Movie, validate } = require('../models/movies');
 const { Genre} = require('../models/genres');
@@ -12,11 +13,15 @@ router.post('/', async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
+  //Check if the genreId is a valid object Id
+  const genreId=mongoose.Types.ObjectId.isValid(req.body.genreId);
+  if (!genreId) return res.status(400).send("Invalid Genre");
+
   //find the genre by Id, if it doesnt exist, return invalid
   const genre= await Genre.findById(req.body.genreId)
   if (!genre) return res.status(400).send("Invalid Genre");
 
-  let movie = new Movie({
+  const movie = new Movie({
     title: req.body.title,
     genre: {
       _id: genre._id,
@@ -26,7 +31,7 @@ router.post('/', async (req, res) => {
     dailyRentalRate: req.body.dailyRentalRate
   });
 
-  movie = await movie.save(movie);
+  await movie.save(movie);
   res.send(movie);
 });
 

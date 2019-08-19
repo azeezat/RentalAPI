@@ -5,7 +5,8 @@ const customers=require('./routes/customers')
 const users=require('./routes/users')
 const movies=require('./routes/movies')
 const rentals=require('./routes/rentals')
-
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const app = express();
 
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true })

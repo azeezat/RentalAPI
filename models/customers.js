@@ -17,10 +17,6 @@ const Customer = mongoose.model('Customer', new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 50
-  },
-  genre:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref:'Genre'
   }
 }));
 
@@ -28,8 +24,7 @@ function validateCustomer(customer) {
     const schema = {
       name: Joi.string().min(5).max(50).required(),
       phone: Joi.string().min(5).max(50).required(),
-      isGold: Joi.boolean(),
-      genre: Joi.string()
+      isGold: Joi.boolean()
     };
   
     return Joi.validate(customer, schema);
