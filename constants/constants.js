@@ -1,3 +1,5 @@
 const JWT_PRIVATE_KEY='jwtPrivateKey'
 
-exports.JWT_PRIVATE_KEY=JWT_PRIVATE_KEY
+module.exports = {
+    JWT_PRIVATE_KEY
+};
